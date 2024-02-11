@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ form_title }}</h1>
+<form method="POST" action="{{ form_action }}">
+    {% for field in form_fields %}
+    <br><label for="{{ field.name }}">{{ field.name }}:</label>
+    {% if field.type == "radio" %}
+    {% for option in field.options %}
+    {% set option_id = option|replace(" ", "_")|lower %}
+    <br><label style="margin-left: 40px;" for="{{ option_id }}">{{ option }}:</label>
+    <input type="{{ field.type }}" id="{{ option_id }}" name="{{ field.name }}" value="{{ option }}">
+    {% endfor %}
+    {% else %}
+    <input type="{{ field.type }}" id="{{ field.name|replace(' ', '_')|lower }}" name="{{ field.name }}" placeholder="{{ field.placeholder }}">
+    {% endif %}
+    {% endfor %}
+    <br><button id="submit" type="submit">Submit</button>
+</form>
+{% endblock %}
